@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo</title>
+    <link th:href="@{/css/home.css}" rel="stylesheet" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<header th:replace="fragments/header.html"/>
+
+<section class="search-container">
+    <div class="search-content">
+        <div class="logo-icon">
+            <h3 th:text="${restaurant.getName()}"></h3>
+        </div>
+        <div class="search-bar">
+            <input type="search" name="search" id="search" placeholder="Пронајди...">
+        </div>
+    </div>
+</section>
+
+<section class="restaurants-container">
+    <div class="card" th:each="meal : ${mealsByRestaurant}" th:id="${meal.getName()}" >
+        <a class="fill-div" th:href="@{'/meal/{id}'(id=${meal.getId()})}">
+            <h2 id="meal-name" th:value="${meal.getName()}" th:text="${meal.getName()}"></h2>
+            <img th:src="@{/images/cover.jpg}" alt="">
+            <h2 th:text="${meal.getPrice()} + 'ден.'"></h2>
+            <button class="btn-fill">Додади во кошничка!</button>
+        </a>
+    </div>
+</section>
+<script type="text/javascript">
+    let search= document.getElementById("search");
+    let rest=document.querySelectorAll("#meal-name")
+    search.addEventListener('input', (evt) => {
+        reRender(evt.target.value);
+    });
+
+    reRender = (val) => {
+        for (i = 0; i < rest.length; i++) {
+            txtValue = rest[i].textContent;
+            if (txtValue.toUpperCase().indexOf(val.toUpperCase()) > -1) {
+                document.getElementById(txtValue).style.display = "flex";
+            } else {
+                document.getElementById(txtValue).style.display = "none";
+            }
+        }
+    }
+</script>
+</body>
+</html>

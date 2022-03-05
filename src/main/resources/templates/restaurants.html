@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/home.css}" rel="stylesheet" >
+</head>
+<body>
+<div class="wrapper fadeInDown">
+    <header></header>
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <ul>
+            <li th:each="restaurant : ${restaurants}" th:value="${restaurant.getName()}" th:text="${restaurant.getName()}">
+                <a th:href="@{'/restaurant/delete/{id}' (id=${restaurant.getId()})}"><i>Delete</i></a>
+                <a th:href="@{'/restaurant/edit/{id}' (id=${restaurant.getId()})}">Edit</a>
+            </li>
+        </ul>
+        <a th:href="@{/restaurant/add}">Add restaurant</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/login.css}" rel="stylesheet" >
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <h2 class="active"> Најава </h2>
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img class="login-img" src="https://img.icons8.com/cute-clipart/100/000000/login-rounded-right.png" id="icon"/>
+        </div>
+        <!-- Login Form -->
+        <form th:method="POST" th:action="@{/login}">
+            <input type="text" id="username" class="fadeIn second" name="username" placeholder="корисничко име">
+            <input type="password" id="password" class="fadeIn third" name="password" placeholder="лозинка">
+            <input type="submit" class="fadeIn fourth" placeholder="Најави се">
+            <div th:if="${hasError}">
+                <div style="color: red" th:text="${error}"></div>
+            </div>
+            <a class="fadeIn fourth" href="/register">Се уште немате сметка? <b>Креирај сега!</b></a>
+        </form>
+    </div>
+</div>
+</body>
+</html>

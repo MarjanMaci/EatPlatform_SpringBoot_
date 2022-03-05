@@ -1,0 +1,46 @@
+<head xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <link th:href="@{/css/login.css}" rel="stylesheet" >
+</head>
+<body>
+<div class="wrapper fadeInDown">
+    <div id="formContent" >
+        <form class="form-signin mt-xl-5" method="post" action="/restaurant/add">
+            <h2 class="active">Add Restaurant</h2>
+            <input id="id" type="hidden" name="id" th:value="(${restaurant} != null ? ${restaurant.getId()} : '')">
+            <p>
+                <label for="name" class="sr-only"></label>
+                <input type="text" id="name" name="name" class="form-control"
+                       placeholder="Name" required="" autofocus=""
+                       th:value="(${restaurant} != null ? ${restaurant.getName()} : '')">
+            </p>
+            <p>
+                <label for="address" class="sr-only"></label>
+                <input type="text" id="address" name="address" class="form-control"
+                       placeholder="Address" required="" autofocus=""
+                       th:value="(${restaurant} != null ? ${restaurant.getAddress()} : '')">
+            </p>
+            <p>
+                <label for="opens" class="sr-only"></label>
+                <input type="text" id="opens" name="opens" class="form-control"
+                       placeholder="Open time" required="" autofocus=""
+                       th:value="(${restaurant} != null ? ${restaurant.getOpens()} : '')">
+            </p>
+            <p>
+                <label for="closes" class="sr-only"></label>
+                <input type="text" id="closes" name="closes" class="form-control"
+                       placeholder="Close time" required="" autofocus=""
+                       th:value="(${restaurant} != null ? ${restaurant.getCloses()} : '')">
+            </p>
+            <p>
+                <label for="avgOrderCompletion" class="sr-only"></label>
+                <input type="text" id="avgOrderCompletion" name="avgOrderCompletion" class="form-control"
+                       placeholder="Average order completition" required="" autofocus=""
+                       th:value="(${restaurant} != null ? ${restaurant.getAvgOrderCompletion().toString()} : '')">
+            </p>
+            <input class="fadeIn fourth" type="submit"></input>
+        </form>
+    </div>
+</div>
+</body>
+</html>

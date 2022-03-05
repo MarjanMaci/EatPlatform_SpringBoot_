@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo</title>
+    <link th:href="@{/css/home.css}" type="text/css" rel="stylesheet" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header th:replace="fragments/header.html"/>
+    <section class="product-container">
+        <div class="product-list">
+            <div class="product">
+                <a href="/menu-categories/0">
+                    <img src="/images/hamburger.png"/>
+                    <h5>Бургери</h5>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/menu-categories/1">
+                    <img src="/images/pizza.png"/>
+                    <h5>Пица и Пастрмајлија</h5>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/menu-categories/2">
+                    <img src="/images/spaguetti.png"/>
+                    <h5>Паста</h5>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/menu-categories/3">
+                    <img src="/images/taco.png"/>
+                    <h5>Мексичка Храна</h5>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/menu-categories/4">
+                    <img src="/images/asian-food.png"/>
+                    <h5>Азиска Храна</h5>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/menu-categories/5">
+                    <img src="/images/barbecue.png"/>
+                    <h5>Скара</h5>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/menu-categories/6">
+                    <img src="/images/eco-food.png"/>
+                    <h5>Здрава Храна</h5>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/menu-categories/7">
+                    <img src="/images/bowl.png"/>
+                    <h5>Салати</h5>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/menu-categories/8">
+                    <img src="/images/ice-cream.png"/>
+                    <h5>Десерти</h5>
+                </a>
+            </div>
+            <div class="product">
+                <a href="/menu-categories/9">
+                    <img src="/images/croissant.png"/>
+                    <h5>Доручек</h5>
+                </a>
+            </div>
+        </div>
+    </section>  
+
+    <section class="search-container">
+        <div class="search-content">
+            <div class="logo-icon">
+            </div>
+            <div class="search-bar">
+                <input type="search" name="search" id="search" placeholder="Пронајди ресторан...">
+            </div>
+        </div>
+    </section>
+
+    <section class="restaurants-container">
+        <div class="card" th:each="restaurant : ${restaurants}" th:id="${restaurant.getName()}">
+            <a class="fill-div" th:href="@{'/restaurant/{id}'(id=${restaurant.getName()})}">
+                <h2 id="rest-name" th:value="${restaurant.getName()}" th:text="${restaurant.getName()}"></h2>
+                <img th:src="@{/images/cover.jpg}" alt="">
+                <p>Работно време:</p>
+                <p th:text="${restaurant.getOpens()} + '-' + ${restaurant.getCloses()}"></p>
+                <p>Време на достава:</p>
+                <p th:text="${restaurant.getAvgOrderCompletion()}+' минути'"></p>
+            </a>
+        </div>
+    </section>
+    <script type="text/javascript">
+        let search= document.getElementById("search");
+        let rest=document.querySelectorAll("#rest-name")
+        search.addEventListener('input', (evt) => {
+            reRender(evt.target.value);
+        });
+
+        reRender = (val) => {
+            for (i = 0; i < rest.length; i++) {
+                txtValue = rest[i].textContent;
+                if (txtValue.toUpperCase().indexOf(val.toUpperCase()) > -1) {
+                    document.getElementById(txtValue).style.display = "flex";
+                } else {
+                    document.getElementById(txtValue).style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

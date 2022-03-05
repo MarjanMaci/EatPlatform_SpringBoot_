@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo</title>
+    <link th:href="@{/css/home.css}" rel="stylesheet" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<header th:replace="fragments/header.html"/>
+
+<section class="search-container">
+    <div class="search-content">
+        <div class="logo-icon">
+        </div>
+        <div class="search-bar">
+            <input type="search" name="search" id="search" placeholder="Search...">
+        </div>
+    </div>
+</section>
+
+<section class="restaurants-container">
+    <div class="card" th:each="menuItem : ${menuCategory}" >
+        <a class="fill-div" th:href="@{'/meal/{id}'(id=${menuItem.getId()})}">
+            <h2 th:value="${menuItem.getName()}" th:text="${menuItem.getName()}"></h2>
+            <img th:src="@{/images/cover.jpg}" alt="">
+            <h2 th:text="${menuItem.getPrice()}+ ' ден'"></h2>
+            <a class="rest-meal" th:href="@{'/restaurant/{id}'(id=${menuItem.getInRestaurant().getName()})}" th:text="${menuItem.getInRestaurant().getName()}"></a>
+        </a>
+    </div>
+</section>
+</body>
+</html>

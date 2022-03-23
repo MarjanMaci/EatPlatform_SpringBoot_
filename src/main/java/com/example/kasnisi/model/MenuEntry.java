@@ -1,11 +1,15 @@
 package com.example.kasnisi.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class MenuEntry {
     @Id
@@ -16,10 +20,10 @@ public class MenuEntry {
     private Long price;
     @ManyToOne()
     private Restaurants inRestaurant;
-    @ManyToMany
-    private List<Orders> entryInOrders;
     @ManyToOne
     private MenuCategories menuCategory;
+    @OneToMany(mappedBy = "menuEntry", fetch = FetchType.EAGER)
+    private List<CartItem> inCartItems;
 
     public MenuEntry() {
     }

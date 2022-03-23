@@ -36,14 +36,12 @@
                         <tr>
                             <th scope="col">Product</th>
                             <th scope="col">Price</th>
-                            <th scope="col">Manufacturer</th>
-                            <th scope="col">Category</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="product : ${products}" class="cart-item">
-                            <td th:text="${product.getName()}"></td>
-                            <td th:text="${product.getPrice()}"></td>
+                            <td th:text="${product.getMenuEntry().getName()}"></td>
+                            <td th:text="${product.getMenuEntry().getPrice()}"></td>
                           </tr>
                         </tbody>
                     </table>

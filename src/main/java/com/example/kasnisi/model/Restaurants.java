@@ -18,7 +18,7 @@ public class Restaurants {
     private String opens;
     private String closes;
     private Long avgOrderCompletion;
-    @ManyToMany
+    @OneToMany(mappedBy = "inRestaurant")
     private List<MenuEntry> menuEntries;
 
     public Restaurants() {

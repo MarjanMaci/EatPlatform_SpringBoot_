@@ -3,6 +3,7 @@ package com.example.kasnisi.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.awt.*;
 import java.util.Date;
 import java.util.List;
 
@@ -16,8 +17,8 @@ public class Orders {
     private Date dateOfOrder;
     private String discountCode;
     private Long orderTotal;
-    @ManyToMany
-    private List<MenuEntry> menuEntries;
+    @OneToMany(mappedBy = "inOrder", fetch = FetchType.EAGER)
+    private List<CartItem> itemsInOrder;
     @ManyToOne
     private User clientThatOrdered;
     @ManyToOne

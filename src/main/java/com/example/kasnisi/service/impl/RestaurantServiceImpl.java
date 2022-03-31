@@ -2,6 +2,7 @@ package com.example.kasnisi.service.impl;
 
 import com.example.kasnisi.model.MenuEntry;
 import com.example.kasnisi.model.Restaurants;
+import com.example.kasnisi.model.dto.RestaurantDto;
 import com.example.kasnisi.model.exceptions.RestaurantNotFound;
 import com.example.kasnisi.repository.RestaurantRepository;
 import com.example.kasnisi.service.RestaurantService;
@@ -45,19 +46,24 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public Restaurants addRestaurant(String name, String address, String opens, String closes, Long avgOrderCompletition) {
-        Restaurants newone= new Restaurants(name,address,opens,closes,avgOrderCompletition);
-        return restaurantRepository.save(newone);
+    public Restaurants addRestaurant(Restaurants restaurants) {
+        return restaurantRepository.save(restaurants);
     }
 
     @Override
-    public Restaurants edit(Long id, String name, String address, String opens, String closes, Long avgOrderCompletition) {
+    public Restaurants addRestaurant(RestaurantDto restaurantDto) {
+        return restaurantRepository.save(new Restaurants(restaurantDto.getName(),restaurantDto.getAddress(), restaurantDto.getOpens(), restaurantDto.getCloses(), restaurantDto.getAvgOrderComp(), restaurantDto.getImg()));
+    }
+
+    @Override
+    public Restaurants edit(Long id, String name, String address, String opens, String closes, Long avgOrderCompletition,String img) {
         Restaurants toEdit = restaurantRepository.findById(id).orElseThrow(()->new RestaurantNotFound());
         toEdit.setName(name);
         toEdit.setAddress(address);
         toEdit.setOpens(opens);
         toEdit.setCloses(closes);
         toEdit.setAvgOrderCompletion(avgOrderCompletition);
+        toEdit.setImg(img);
         return restaurantRepository.save(toEdit);
     }
 }

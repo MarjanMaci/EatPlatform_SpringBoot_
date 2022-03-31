@@ -1,5 +1,6 @@
 package com.example.kasnisi.web;
 
+import com.example.kasnisi.model.Restaurants;
 import com.example.kasnisi.service.RestaurantService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,12 +50,13 @@ public class RestaurantController {
                                 @RequestParam String address,
                                 @RequestParam String opens,
                                 @RequestParam String closes,
-                                @RequestParam String avgOrderCompletion) {
+                                @RequestParam String avgOrderCompletion,
+                                 @RequestParam String img) {
         Long avgOrderComp=Long.parseLong(avgOrderCompletion);
         if(id!=null){
-            this.restaurantService.edit(id,name,address,opens,closes,avgOrderComp);
+            this.restaurantService.edit(id,name,address,opens,closes,avgOrderComp,img);
         }else {
-            this.restaurantService.addRestaurant(name, address, opens, closes, avgOrderComp);
+            this.restaurantService.addRestaurant(new Restaurants(name,address,opens,closes,avgOrderComp,img));
         }
         return "redirect:/restaurant";
     }

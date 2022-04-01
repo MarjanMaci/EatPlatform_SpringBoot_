@@ -18,7 +18,6 @@ public class MenuEntry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String description;
     private Long price;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
@@ -29,14 +28,15 @@ public class MenuEntry {
     @OneToMany(mappedBy = "menuEntry", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<CartItem> inCartItems;
+    @ManyToMany
+    private List<Ingredients> ingredients;
     private String img;
 
     public MenuEntry() {
     }
 
-    public MenuEntry(String name, String description, MenuCategories menuCategory,Long price) {
+    public MenuEntry(String name, MenuCategories menuCategory,Long price) {
         this.name = name;
-        this.description = description;
         this.menuCategory=menuCategory;
         this.price=price;
     }

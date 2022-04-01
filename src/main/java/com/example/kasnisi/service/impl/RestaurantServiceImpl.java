@@ -9,6 +9,7 @@ import com.example.kasnisi.service.RestaurantService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
@@ -41,8 +42,8 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public Restaurants findById(Long id) {
-        return restaurantRepository.findById(id).orElseThrow(()->new RestaurantNotFound());
+    public Optional<Restaurants> findById(Long id) {
+        return restaurantRepository.findById(id);
     }
 
     @Override
@@ -52,6 +53,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Restaurants addRestaurant(RestaurantDto restaurantDto) {
+        this.restaurantRepository.deleteByName(restaurantDto.getName());
         return restaurantRepository.save(new Restaurants(restaurantDto.getName(),restaurantDto.getAddress(), restaurantDto.getOpens(), restaurantDto.getCloses(), restaurantDto.getAvgOrderComp(), restaurantDto.getImg()));
     }
 

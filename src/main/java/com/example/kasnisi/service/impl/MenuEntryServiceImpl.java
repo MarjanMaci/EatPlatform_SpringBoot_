@@ -1,9 +1,12 @@
 package com.example.kasnisi.service.impl;
 
+import com.example.kasnisi.model.Ingredients;
 import com.example.kasnisi.model.MenuEntry;
 import com.example.kasnisi.model.exceptions.menuEntryNotFound;
 import com.example.kasnisi.repository.MenuEntryRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MenuEntryServiceImpl implements com.example.kasnisi.service.MenuEntryService {
@@ -11,6 +14,14 @@ public class MenuEntryServiceImpl implements com.example.kasnisi.service.MenuEnt
 
     public MenuEntryServiceImpl(MenuEntryRepository menuEntryRepository){
         this.menuEntryRepository=menuEntryRepository;
+    }
+
+    @Override
+    public List<Ingredients> listAllIngredients(Long id) {
+        if(!this.menuEntryRepository.findById(id).isPresent()){
+            throw new menuEntryNotFound(id);
+        }
+        return this.menuEntryRepository.findById(id).get().getIngredients();
     }
 
     @Override

@@ -18,7 +18,6 @@ public class MealController {
 
     @GetMapping("/{id}")
     public String getMeal(@PathVariable Long id, Model model){
-        model.addAttribute("ingredients", menuEntryService.transliterate(menuEntryService.findById(id).getDescription()));
         model.addAttribute("meal", menuEntryService.findById(id));
         return "meal";
     }

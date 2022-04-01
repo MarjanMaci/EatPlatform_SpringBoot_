@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -24,6 +25,15 @@ public class RestaurantRestController {
         return restaurantService.getMealsByRestaurant(restName);
     }
 
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Optional<Restaurants>> findRestaurant(@PathVariable Long id){
+        if(this.restaurantService.findById(id).isPresent()){
+            return ResponseEntity.ok().body(this.restaurantService.findById(id));
+        }else{
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @PostMapping("/add")
     public ResponseEntity<RestaurantDto> save(@RequestBody RestaurantDto restaurantDto) {
         if(this.restaurantService.addRestaurant(restaurantDto)!=null) {
@@ -31,6 +41,24 @@ public class RestaurantRestController {
         }else{
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<RestaurantDto> edit(@PathVariable Long id,@RequestBody RestaurantDto restaurantDto) {
+        if(this.restaurantService.edit(id,restaurantDto.getName(), restaurantDto.getAddress(), restaurantDto.getOpens(), restaurantDto.getCloses(), restaurantDto.getAvgOrderComp(), restaurantDto.getImg())!=null) {
+            return ResponseEntity.ok().body(restaurantDto);
+        }else{
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+       this.restaurantService.deleteRestaurant(id);
+       if(this.restaurantService.findById(id).isEmpty())
+           return ResponseEntity.ok().build();
+       else
+           return ResponseEntity.notFound().build();
     }
 
 }

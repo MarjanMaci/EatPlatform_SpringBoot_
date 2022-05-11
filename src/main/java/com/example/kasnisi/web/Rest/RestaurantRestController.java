@@ -5,6 +5,7 @@ import com.example.kasnisi.model.Restaurants;
 import com.example.kasnisi.model.dto.RestaurantDto;
 import com.example.kasnisi.service.RestaurantService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class RestaurantRestController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<RestaurantDto> save(@RequestBody RestaurantDto restaurantDto) {
         if(this.restaurantService.addRestaurant(restaurantDto)!=null) {
                 return ResponseEntity.ok().body(restaurantDto);
@@ -44,6 +46,7 @@ public class RestaurantRestController {
     }
 
     @PutMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<RestaurantDto> edit(@PathVariable Long id,@RequestBody RestaurantDto restaurantDto) {
         if(this.restaurantService.edit(id,restaurantDto.getName(), restaurantDto.getAddress(), restaurantDto.getOpens(), restaurantDto.getCloses(), restaurantDto.getAvgOrderComp(), restaurantDto.getImg())!=null) {
             return ResponseEntity.ok().body(restaurantDto);
@@ -53,6 +56,7 @@ public class RestaurantRestController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity delete(@PathVariable Long id) {
        this.restaurantService.deleteRestaurant(id);
        if(this.restaurantService.findById(id).isEmpty())

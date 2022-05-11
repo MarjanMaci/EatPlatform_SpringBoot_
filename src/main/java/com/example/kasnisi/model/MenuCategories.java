@@ -15,6 +15,7 @@ public class MenuCategories {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String img;
 
     @OneToMany(mappedBy = "menuCategory", fetch = FetchType.EAGER)
     private List<MenuEntry> menuEntryList;

@@ -2,6 +2,7 @@ package com.example.kasnisi.web;
 
 import com.example.kasnisi.model.Restaurants;
 import com.example.kasnisi.service.RestaurantService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ public class RestaurantController {
     public RestaurantController(RestaurantService restaurantService){
         this.restaurantService=restaurantService;
     }
+
     @GetMapping()
     public String getRestaurants(Model model){
         model.addAttribute("restaurants",restaurantService.getAllRestaurants());

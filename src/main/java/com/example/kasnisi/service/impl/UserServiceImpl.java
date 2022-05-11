@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public User loadUserByUsername(String s) throws UsernameNotFoundException {
         return userRepository.findByUsername(s).orElseThrow(()->new UsernameNotFoundException(s));
     }
 
@@ -39,4 +39,6 @@ public class UserServiceImpl implements UserService {
         User user = new User(username,passwordEncoder.encode(password),name,surname,address,email,phoneNumber);
         return userRepository.save(user);
     }
+
+
 }

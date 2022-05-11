@@ -38,7 +38,7 @@ public class ShoppingCartController {
     public String addProductToShoppingCart(@PathVariable Long id, HttpServletRequest req, Authentication authentication) {
         try {
             User user = (User) authentication.getPrincipal();
-            this.shoppingCartService.addProductToShoppingCart(user.getUsername(), id);
+            //this.shoppingCartService.addProductToShoppingCart(user.getUsername(), id,1);
             return "redirect:/shopping-cart";
         } catch (RuntimeException exception) {
             return "redirect:/shopping-cart?error=" + exception.getMessage();

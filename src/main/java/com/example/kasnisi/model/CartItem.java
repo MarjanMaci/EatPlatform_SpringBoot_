@@ -16,9 +16,6 @@ public class CartItem {
 
     private Integer ammount;
 
-    @ManyToMany
-    private List<ShoppingCart> shoppingCart;
-
     @ManyToOne
     private Orders inOrder;
 
@@ -27,6 +24,9 @@ public class CartItem {
     public CartItem(MenuEntry menuEntry) {
         this.menuEntry = menuEntry;
         this.ammount=1;
-        this.shoppingCart=new ArrayList<>();
+    }
+    public CartItem(MenuEntry menuEntry, Integer ammount) {
+        this.menuEntry = menuEntry;
+        this.ammount=1;
     }
 }

@@ -19,6 +19,7 @@ public class User implements UserDetails {
     private String name;
     private String surname;
     private String address;
+    private String img;
     private String email;
     private Long phoneNumber;
     @OneToMany(mappedBy = "clientThatOrdered",fetch = FetchType.EAGER)

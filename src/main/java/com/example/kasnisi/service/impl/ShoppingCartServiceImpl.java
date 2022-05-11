@@ -1,6 +1,7 @@
 package com.example.kasnisi.service.impl;
 
 import com.example.kasnisi.model.*;
+import com.example.kasnisi.model.dto.CartItemDTO;
 import com.example.kasnisi.model.exceptions.ShoppingCartNotFoundException;
 import com.example.kasnisi.model.exceptions.UsernameAlreadyExistsException;
 import com.example.kasnisi.model.exceptions.menuEntryNotFound;
@@ -49,11 +50,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCart addProductToShoppingCart(String username, Long productId) {
-        ShoppingCart shoppingCart = this.getActiveShoppingCart(username);
-        MenuEntry product = this.menuEntryRepository.findById(productId)
-                .orElseThrow(() -> new menuEntryNotFound(productId));
-        CartItem item = new CartItem(product);
+    public ShoppingCart addProductToShoppingCartDTO(CartItemDTO cartItemDTO) {
+        ShoppingCart shoppingCart = this.getActiveShoppingCart(cartItemDTO.getUsername());
+        MenuEntry product = this.menuEntryRepository.findById(cartItemDTO.getMealId())
+                .orElseThrow(() -> new menuEntryNotFound(cartItemDTO.getMealId()));
+        CartItem item = new CartItem(product,cartItemDTO.getAmmount());
         this.cartItemRepository.save(item);
         shoppingCart.getCartItems().add(item);
         return this.shoppingCartRepository.save(shoppingCart);

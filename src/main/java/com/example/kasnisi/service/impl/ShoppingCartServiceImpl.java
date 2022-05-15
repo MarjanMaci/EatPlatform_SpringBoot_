@@ -59,4 +59,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         shoppingCart.getCartItems().add(item);
         return this.shoppingCartRepository.save(shoppingCart);
     }
+
+    @Override
+    public void deleteAllProductsInCart(User user) {
+        ShoppingCart sc=shoppingCartRepository.findByUser(user).orElseThrow(()->new ShoppingCartNotFoundException(Long.parseLong("0")));
+        sc.setCartItems(null);
+    }
 }

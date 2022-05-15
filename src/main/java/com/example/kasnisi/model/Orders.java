@@ -1,5 +1,6 @@
 package com.example.kasnisi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,8 +21,10 @@ public class Orders {
     @OneToMany(mappedBy = "inOrder", fetch = FetchType.EAGER)
     private List<CartItem> itemsInOrder;
     @ManyToOne
+    @JsonIgnore
     private User clientThatOrdered;
     @ManyToOne
+    @JsonIgnore
     private Employees employeeThatDeliveres;
 
     public Orders() {
@@ -34,5 +37,15 @@ public class Orders {
         this.orderTotal = orderTotal;
         this.clientThatOrdered = clientThatOrdered;
         this.employeeThatDeliveres = employeeThatDeliveres;
+    }
+
+    public Orders(Date date, String discountCode, Long orderTotal, List<CartItem> items, User user, Employees employeeThatDeliveres) {
+        this.delivered=false;
+        this.dateOfOrder=date;
+        this.discountCode=discountCode;
+        this.orderTotal=orderTotal;
+        this.itemsInOrder=items;
+        this.clientThatOrdered=user;
+        this.employeeThatDeliveres=employeeThatDeliveres;
     }
 }
